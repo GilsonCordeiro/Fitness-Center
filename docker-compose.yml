@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: acadmy-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: acadmy
+      MYSQL_USER: acadmy
+      MYSQL_PASSWORD: acadmy123
+    ports:
+      - "3306:3306"
+    volumes:
+      - acadmy_mysql_data:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "acadmy", "-pacadmy123"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  acadmy_mysql_data:
